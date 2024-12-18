@@ -1,5 +1,11 @@
 # my-package
 
+## 3.0.1
+
+### Patch Changes
+
+- b4db2ee: hmhmh
+
 ## 3.0.0
 
 ### Major Changes
