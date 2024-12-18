@@ -1,5 +1,11 @@
 # my-package
 
+## 3.0.2
+
+### Patch Changes
+
+- 48fd83b: hm
+
 ## 3.0.1
 
 ### Patch Changes
