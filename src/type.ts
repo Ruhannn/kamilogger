@@ -3,6 +3,7 @@ export type D = {
      * Configuration options for the kamiLogger.
      */
     config?: {
+        isMongoose?: boolean,
         /**
          * The connection string for the database.
          */
@@ -46,5 +47,5 @@ export type D = {
          * - Default is `combined`
          */
         format?: "dev" | "combined" | "common" | "short" | "tiny";
-    } 
+    }
 };

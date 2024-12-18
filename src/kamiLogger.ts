@@ -2,7 +2,7 @@
 import mongoose, { Schema } from "mongoose";
 import morgan from "morgan";
 import { PassThrough } from "stream";
-import { cyan, gray, red, greenBright, yellow, yellowBright, bold, isColorSupported } from 'colorette';
+import { cyan, gray, red, greenBright, yellow, yellowBright, bold } from 'colorette';
 // @ts-expect-error
 import { carry } from "carrier";
 import { D } from "./type";
@@ -11,7 +11,6 @@ let logSchema: Schema;
 
 /**
  * kamiLogger.
- * 
  */
 export function kamiLogger(config: D['config'] = {}) {
 
@@ -26,7 +25,7 @@ export function kamiLogger(config: D['config'] = {}) {
         });
     }
 
-
+console.log(config.isMongoose);
     // Create stream to read from
     const lineStream = carry(passStream);
     lineStream.on("line", onLine);
@@ -84,24 +83,27 @@ export function kamiLogger(config: D['config'] = {}) {
                 return "from"
             }// ref
             else if (i === 5) {
+                if (value === "null") {
+                    return "-"
+                }
                 return bold(value)
             } // user agent
             else if (i === 6) {
                 const match = value.match(/(Firefox|Chrome|Safari|Opera|Edge)/);
-                return match ? (`in ${bold(match[0])}`) : null
+                return match ? (`in ${bold(match[0])}`) : bold(value)
             }
             // time
             else if (i === 7) {
                 return ""
             }
             return String(value);
-        }).join(' ');
+        }).join(" ")
 
-        console.log(isColorSupported ? formattedLog : Object.values(parsedLog).join(' '));
+        console.log(formattedLog);
 
         const logModel = new Log({ log: line });
         try {
-            if (config?.connectionString) {
+            if (config?.connectionString || config?.isMongoose) {
                 await logModel.save();
             }
         } catch (err) {
@@ -121,8 +123,8 @@ export function kamiLogger(config: D['config'] = {}) {
             status: tokens.status(req, res),
             url: tokens.url(req, res),
             execTime: tokens['response-time'](req, res) + 'ms',
-            ip: tokens[':remote-addr'](req, res),
-            referer: tokens.referrer(req, res),
+            ip: "127.0.0.1",
+            referer: tokens.referrer(req, res) ?? "null",
             userAgent: tokens['user-agent'](req, res),
             time: tokens.date(req, res, 'iso'),
         });
