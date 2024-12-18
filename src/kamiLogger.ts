@@ -11,6 +11,7 @@ let logSchema: Schema;
 
 /**
  * kamiLogger.
+ * 
  */
 export function kamiLogger(config: D['config'] = {}) {
 
