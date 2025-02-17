@@ -1,5 +1,11 @@
 # my-package
 
+## 4.0.0
+
+### Major Changes
+
+- 8c3e075: added doc and changed it a bit
+
 ## 3.1.0
 
 ### Minor Changes
