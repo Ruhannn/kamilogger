@@ -1,5 +1,16 @@
 # my-package
 
+## 3.1.0
+
+### Minor Changes
+
+- 4ad5f67: just fixed a issue with morgan
+
+### Patch Changes
+
+- a498970: hm
+- 9473e39: fixed
+
 ## 3.0.2
 
 ### Patch Changes
