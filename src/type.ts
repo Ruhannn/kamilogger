@@ -25,17 +25,6 @@ export type D = {
              */
             cappedMax?: number;
         };
-        /**
-         * The user for database authentication (optional).
-         */
-        user?: string;
-        /**
-         * The password for database authentication (optional).
-         */
-        pass?: string;
-        /**
-         * The name of the database (optional).
-         */
         dbName?: string;
         /**
          * The format for logging. Possible values are:

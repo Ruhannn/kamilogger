@@ -6,9 +6,11 @@ import { cyan, gray, red, greenBright, yellow, yellowBright, bold } from 'colore
 // @ts-expect-error
 import { carry } from "carrier";
 import { D } from "./type";
+
+
+
 const passStream = new PassThrough();
 let logSchema: Schema;
-
 /**
  * kamiLogger.
  */
@@ -17,15 +19,12 @@ export function kamiLogger(config: D['config'] = {}) {
 
     if (config?.connectionString && mongoose.connections[0].readyState === 0) {
         mongoose.connect(config.connectionString, {
-            user: config.user,
-            pass: config.pass,
             dbName: config.dbName,
         }).catch((err) => {
             throw (`kami error :${err}`);
         });
     }
 
-console.log(config.isMongoose);
     // Create stream to read from
     const lineStream = carry(passStream);
     lineStream.on("line", onLine);
@@ -34,7 +33,16 @@ console.log(config.isMongoose);
     if (!logSchema) {
         logSchema = new Schema(
             {
-                log: Object,
+                log: {
+                    method: String,
+                    status: String,
+                    url: String,
+                    execTime: String,
+                    ip: String,
+                    referer: String,
+                    userAgent: String,
+                    time: String || Date,
+                }
             },
             config.capped
                 ? {
@@ -78,7 +86,7 @@ console.log(config.isMongoose);
             }  // response-time
             else if (i === 3) {
                 return (`took ${cyan(value)}`);
-            } // ip 
+            } // ip
             else if (i === 4) {
                 return "from"
             }// ref
@@ -101,7 +109,7 @@ console.log(config.isMongoose);
 
         console.log(formattedLog);
 
-        const logModel = new Log({ log: line });
+        const logModel = new Log({ log: JSON.parse(line) });
         try {
             if (config?.connectionString || config?.isMongoose) {
                 await logModel.save();
@@ -117,13 +125,13 @@ console.log(config.isMongoose);
 
 
 
-    const Morgan = morgan((tokens, req, res) => {
+    const K_Morgan = morgan((tokens, req, res) => {
         return JSON.stringify({
             method: tokens.method(req, res),
             status: tokens.status(req, res),
             url: tokens.url(req, res),
             execTime: tokens['response-time'](req, res) + 'ms',
-            ip: "127.0.0.1",
+            ip: req.headers['x-real-ip'] || "unknown",
             referer: tokens.referrer(req, res) ?? "null",
             userAgent: tokens['user-agent'](req, res),
             time: tokens.date(req, res, 'iso'),
@@ -132,5 +140,5 @@ console.log(config.isMongoose);
         stream: passStream
     });
 
-    return Morgan;
+    return K_Morgan;
 }
