@@ -4,9 +4,23 @@
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
-    "description": "logger for express and save on mongodb",
+    "description": "logger for express apps",
+    "author": "Ruhannn",
     "license": "MIT",
     "private": false,
+    "keywords": [
+        "backend",
+        "express",
+        "logs"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Ruhannn/kamilogger.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Ruhannn/kamilogger/issues"
+    },
+    "homepage": "https://github.com/Ruhannn/kamilogger/#readme",
     "scripts": {
         "build": "tsup",
         "lint": "tsc --noEmit",

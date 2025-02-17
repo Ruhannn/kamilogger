@@ -6,7 +6,11 @@ A pretty and simple way to store and view logs.
 
 # demo
 
-![demo-image](/images/demo.png)
+<a href="https://raw.githubusercontent.com/Ruhannn/kamilogger/refs/heads/main/images/demo.png" target="_blank">
+
+![demo](https://raw.githubusercontent.com/Ruhannn/kamilogger/refs/heads/main/images/demo.png "demo")
+
+</a>
 
 # To get started
 
