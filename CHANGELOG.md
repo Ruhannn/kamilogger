@@ -1,5 +1,11 @@
 # my-package
 
+## 4.0.2
+
+### Patch Changes
+
+- a7b1ffb: format the response time
+
 ## 4.0.1
 
 ### Patch Changes
