@@ -1,5 +1,11 @@
 # my-package
 
+## 4.0.1
+
+### Patch Changes
+
+- 79fb09e: updated readme
+
 ## 4.0.0
 
 ### Major Changes
