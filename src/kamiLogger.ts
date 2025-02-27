@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import { bold, cyan, gray, greenBright, red, yellow, yellowBright } from 'colorette';
 import mongoose, { Schema } from "mongoose";
 import morgan from "morgan";
 import { PassThrough } from "stream";
-import { cyan, gray, red, greenBright, yellow, yellowBright, bold } from 'colorette';
 // @ts-expect-error
 import { carry } from "carrier";
-import { D } from "./type";
+import type { D } from "./type";
+
 
 
 
@@ -85,7 +86,8 @@ export function kamiLogger(config: D['config'] = {}) {
                 return gray(value);
             }  // response-time
             else if (i === 3) {
-                return (`took ${cyan(value)}`);
+
+                return (`took ${cyan(`${Math.max(1, Math.round(+value.replace("ms", "")))}ms`)}`);
             } // ip
             else if (i === 4) {
                 return "from"
